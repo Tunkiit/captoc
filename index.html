@@ -662,8 +662,22 @@ function mark(remember) {
     show();
 }
 function speak(text) {
-    const url = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=' + encodeURIComponent(text);
-    new Audio(url).play().catch(() => {});
+    // Thử nhiều nguồn TTS, tự chuyển sang nguồn khác nếu nguồn trước lỗi
+    const enc = encodeURIComponent(text);
+    const sources = [
+        'https://fanyi.baidu.com/gettts?lan=zh&text=' + enc + '&source=web&spd=3',
+        'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=' + enc,
+        'https://dict.youdao.com/dictvoice?audio=' + enc + '&type=2'
+    ];
+    let i = 0;
+    const tryNext = () => {
+        if (i >= sources.length) return;
+        const a = new Audio(sources[i]);
+        i++;
+        a.onerror = tryNext;
+        a.play().catch(tryNext);
+    };
+    tryNext();
 }
 
 // ===== LISTENING =====
