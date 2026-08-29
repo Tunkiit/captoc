@@ -667,15 +667,7 @@ function mark(remember) {
     known[current.h] = remember;
     saveKnown();
     updateStats();
-    if (remember) {
-        // Đã nhớ: loại thẻ khỏi danh sách đang học ngay lập tức
-        list.splice(idx, 1);
-        if (idx >= list.length) idx = 0;
-    } else if (list.length > 1) {
-        // Chưa nhớ: giữ lại để ôn tiếp, chuyển sang thẻ kế
-        idx = (idx + 1) % list.length;
-    }
-    show();
+    applyFilters();
 }
 function speak(text) {
     // Thử speechSynthesis trước (chạy trên mobile, Chrome, Edge)
