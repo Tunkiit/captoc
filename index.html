@@ -152,6 +152,48 @@ body.dark .a-title { color: #e6ecf7; }
 body.dark .divider { border-color: #343c52; }
 body.dark .section-title { color: #e6ecf7; }
 
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .home-actions { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+    body { flex-direction: column; }
+    .sidebar {
+        width: 100%; min-height: auto; flex-direction: row; align-items: center; flex-wrap: wrap;
+        padding: 10px 12px; gap: 4px; border-right: none; border-bottom: 1px solid #e3ecf7;
+        position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: rgba(255,255,255,.92);
+    }
+    body.dark .sidebar { background: rgba(30,34,48,.92); border-bottom: 1px solid #2c3346; }
+    .logo { padding: 0 8px 0 0; }
+    .logo-badge { width: 34px; height: 34px; font-size: 1rem; }
+    .logo-name { font-size: .82rem; }
+    .logo-name small { display: none; }
+    .menu-label { display: none; }
+    .menu-item { padding: 8px 9px; font-size: .78rem; gap: 6px; }
+    .menu-item .mi { width: 22px; height: 22px; font-size: .8rem; }
+    .main { padding: 14px 12px; }
+    .header-card { padding: 16px; border-radius: 18px; }
+    .greeting h2 { font-size: 1.05rem; }
+    .chips { gap: 6px; }
+    .chip { padding: 6px 10px; font-size: .75rem; }
+    .stats { gap: 10px; }
+    .stat { padding: 14px; border-radius: 16px; }
+    .stat .s-value { font-size: 1.35rem; }
+    .section-card { padding: 14px; border-radius: 18px; }
+    .tabs { gap: 6px; }
+    .tab-btn { padding: 8px 12px; font-size: .8rem; }
+    .options { grid-template-columns: 1fr; }
+    .hanzi { font-size: 3.4rem; }
+    .pinyin { font-size: 1.3rem; }
+    .meaning { font-size: 1.35rem; }
+    .card-wrap { height: 240px; }
+    .home-actions { gap: 10px; }
+    .action-card { padding: 16px; }
+    .controls { flex-wrap: wrap; }
+}
+
 /* ===== DARK THEME (toggle) ===== */
 body.dark { background: #1e2230; }
 body.dark .sidebar { background: linear-gradient(180deg, #232838, #1c2130); border-right: 1px solid #2c3346; }
