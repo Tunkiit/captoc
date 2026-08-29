@@ -661,22 +661,36 @@ function mark(remember) {
     idx = list.length > 1 ? (idx + 1) % list.length : 0;
     show();
 }
-function speak(text) {
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // cancel any previous speech
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'zh-CN';
-        u.rate = 0.85;
-        u.volume = 1;
-        // try to find a Chinese voice
-        const voices = window.speechSynthesis.getVoices();
-        const zh = voices.find(v => v.lang.startsWith('zh'));
-        if (zh) u.voice = zh;
-        window.speechSynthesis.speak(u);
-    }
+let ttsReady = false;
+function loadVoices() {
+    if (!('speechSynthesis' in window)) return;
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length) ttsReady = true;
 }
-// Pre-load voices (needed on some browsers)
-if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
+if ('speechSynthesis' in window) {
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+function speak(text) {
+    // 1) Ưu tiên giọng native (chạy tốt trên mobile)
+    if ('speechSynthesis' in window && ttsReady) {
+        try {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'zh-CN';
+            u.rate = 0.85;
+            u.volume = 1;
+            const zh = window.speechSynthesis.getVoices().find(v => v.lang.startsWith('zh'));
+            if (zh) u.voice = zh;
+            window.speechSynthesis.speak(u);
+            return;
+        } catch (e) { /* fallthrough to audio */ }
+    }
+    // 2) Fallback: audio từ Baidu (chạy trên PC/preview)
+    const enc = encodeURIComponent(text);
+    const a = new Audio('https://fanyi.baidu.com/gettts?lan=zh&text=' + enc + '&source=web&spd=3');
+    a.play().catch(() => {});
+}
 
 // ===== LISTENING =====
 let lScore = 0, lIdx = 0, lTarget = null;
