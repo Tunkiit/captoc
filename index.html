@@ -231,8 +231,7 @@ body.dark .audio-btn { box-shadow: 0 6px 18px rgba(0,0,0,.4); }
     <div class="menu-label">Học tập</div>
     <div class="menu-item active" data-sec="home" onclick="go('home')"><span class="mi" style="background:#e3edff">🏠</span> Hôm nay</div>
     <div class="menu-item" data-sec="flash" onclick="go('flash')"><span class="mi" style="background:#ede9fe">📘</span> Từ vựng</div>
-    <div class="menu-item" data-sec="listen" onclick="go('listen')"><span class="mi" style="background:#dcfce7">🎧</span> Nghe</div>
-    <div class="menu-item" data-sec="quiz" onclick="go('quiz')"><span class="mi" style="background:#fff7ed">⚡</span> Thi thử</div>
+        <div class="menu-item" data-sec="loop" onclick="go('loop')"><span class="mi" style="background:#dcfce7">🔄</span> Luyện vòng</div>
     <div style="flex:1"></div>
     <div class="menu-label">Tiến độ</div>
     <div class="menu-item" onclick="exportProgress()"><span class="mi" style="background:#dcfce7">📤</span> Xuất tiến độ</div>
@@ -294,17 +293,11 @@ body.dark .audio-btn { box-shadow: 0 6px 18px rgba(0,0,0,.4); }
                 <div class="a-sub">Lật thẻ 267 từ + ghi nhớ</div>
                 <button class="btn btn-primary">Học ngay →</button>
             </div>
-            <div class="action-card" onclick="go('listen')">
-                <div class="a-icon" style="background:#dcfce7">🎧</div>
-                <div class="a-title">Luyện nghe</div>
-                <div class="a-sub">Nghe & chọn nghĩa / pinyin</div>
-                <button class="btn btn-primary">Nghe thôi →</button>
-            </div>
-            <div class="action-card" onclick="go('quiz')">
-                <div class="a-icon" style="background:#fff7ed">⚡</div>
-                <div class="a-title">Thi thử</div>
-                <div class="a-sub">Kiểm tra 10 câu ngẫu nhiên</div>
-                <button class="btn btn-primary">Làm bài →</button>
+            <div class="action-card" onclick="go('loop')">
+                <div class="a-icon" style="background:#dcfce7">🔄</div>
+                <div class="a-title">Luyện vòng</div>
+                <div class="a-sub">Chấm thuộc/chưa, từ chưa thuộc quay vòng</div>
+                <button class="btn btn-primary">Ôn vòng →</button>
             </div>
         </div>
         <hr class="divider">
@@ -322,9 +315,6 @@ body.dark .audio-btn { box-shadow: 0 6px 18px rgba(0,0,0,.4); }
     <div class="section-card" id="contentCard" style="display:none">
         <div class="tabs">
             <button class="tab-btn active" id="tab-flash" onclick="switchTab('flash')">🃏 Flashcard</button>
-            <button class="tab-btn" id="tab-listen" onclick="switchTab('listen')">🎧 Luyện nghe</button>
-            <button class="tab-btn" id="tab-lp" onclick="switchTab('lp')">🎯 Nghe + Pinyin</button>
-            <button class="tab-btn" id="tab-quiz" onclick="switchTab('quiz')">📝 Kiểm tra</button>
             <button class="tab-btn" id="tab-loop" onclick="switchTab('loop')">🔄 Luyện vòng</button>
         </div>
 
@@ -363,51 +353,20 @@ body.dark .audio-btn { box-shadow: 0 6px 18px rgba(0,0,0,.4); }
             </div>
         </div>
 
-        <div id="listen" class="tab-content">
-            <div class="score"><span>Câu: <strong id="lProg">1/10</strong></span><span>Đúng: <strong id="lScore">0</strong></span></div>
-            <div class="quiz-card">
-                <button class="audio-btn" onclick="playL()">🔊</button>
-                <div class="listen-note">Nghe từ rồi chọn nghĩa đúng</div>
-                <div class="options" id="lOpts"></div>
-                <div class="status" id="lStatus"></div>
-                <div style="text-align:right;margin-top:12px"><button class="btn btn-primary" id="lNext" style="display:none" onclick="nextL()">Câu tiếp ▶</button></div>
-            </div>
-        </div>
-
-        <div id="lp" class="tab-content">
-            <div class="score"><span>Câu: <strong id="lpProg">1/10</strong></span><span>Điểm: <strong id="lpScore">0</strong>/20</span></div>
-            <div class="quiz-card">
-                <button class="audio-btn" onclick="playLP()">🔊</button>
-                <div class="listen-note" id="lpPrompt">Bước 1: Nghe và chọn Pinyin đúng</div>
-                <div class="options" id="lpOpts"></div>
-                <div class="status" id="lpStatus"></div>
-                <div style="text-align:right;margin-top:12px"><button class="btn btn-primary" id="lpNext" style="display:none" onclick="nextLP()">Câu tiếp ▶</button></div>
-            </div>
-        </div>
-
-        <div id="quiz" class="tab-content">
-            <div class="score"><span>Câu: <strong id="qProg">1/10</strong></span><span>Đúng: <strong id="qScore">0</strong></span></div>
-            <div class="quiz-card">
-                <div id="qQuestion" style="font-size:1.2rem; text-align:center; margin-bottom:10px; font-weight:600"></div>
-                <div class="options" id="qOpts"></div>
-                <div class="status" id="qStatus"></div>
-                <div style="text-align:right;margin-top:12px"><button class="btn btn-primary" id="qNext" style="display:none" onclick="nextQ()">Câu tiếp ▶</button></div>
-            </div>
-        </div>
-
         <div id="loop" class="tab-content">
             <div class="score"><span>Đã xong: <strong id="loDone">0</strong>/<span id="loTotal">0</span></span><span>Còn lại: <strong id="loLeft">0</strong></span></div>
             <div class="quiz-card">
                 <div style="text-align:center">
                     <span class="cat-tag" id="loCat" style="display:inline-block; margin-bottom:8px"></span>
                     <div class="hanzi" id="loHanzi" style="font-size:3rem; margin:8px 0"></div>
-                    <div class="pinyin" id="loPinyin" style="margin-bottom:8px"></div>
-                    <button class="speak" onclick="speak($('#loHanzi').innerText)">🔊</button>
+                    <div class="pinyin" id="loPinyin" style="margin-bottom:4px"></div>
+                    <div class="meaning" id="loMeaning" style="font-size:1.5rem; margin-bottom:4px"></div>
+                    <button class="speak" onclick="speak($('#loHanzi').innerText)">🔊 Nghe</button>
                 </div>
-                <div class="listen-note" style="margin:12px 0">Bạn nhớ từ này không?</div>
+                <div class="listen-note" style="margin:12px 0">Đọc chữ, xem nghĩa bên trên — bạn nhớ từ này không?</div>
                 <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
-                    <button class="btn" style="background:#dc2626;color:#fff; min-width:110px" onclick="loopAns(false)">❌ Chưa biết</button>
-                    <button class="btn" style="background:#16a34a;color:#fff; min-width:110px" onclick="loopAns(true)">✅ Biết rồi</button>
+                    <button class="btn" style="background:#dc2626;color:#fff; min-width:110px" onclick="loopAns(false)">❌ Chưa thuộc</button>
+                    <button class="btn" style="background:#16a34a;color:#fff; min-width:110px" onclick="loopAns(true)">✅ Thuộc rồi</button>
                 </div>
                 <div class="status" id="loStatus" style="margin-top:12px"></div>
             </div>
@@ -781,156 +740,30 @@ function speak(text) {
     a.play().catch(() => {});
 }
 
-// ===== LISTENING =====
-let lScore = 0, lIdx = 0, lTarget = null;
-
-function startL() {
-    lScore = 0; lIdx = 0; loadL();
-}
-function loadL() {
-    if (lIdx >= 10) {
-        $('#listen').innerHTML = `<div class="quiz-card" style="text-align:center"><h2>🎉 Xong!</h2><p style="font-size:1.5rem;margin:18px 0;color:var(--correct)">${lScore}/10</p><button class="btn btn-primary" onclick="location.reload()">Làm lại</button></div>`;
-        return;
-    }
-    $('#lProg').innerText = `${lIdx+1}/10`; $('#lScore').innerText = lScore;
-    $('#lStatus').innerText = ''; $('#lNext').style.display = 'none';
-    lTarget = V[Math.floor(Math.random() * V.length)];
-    let opts = [lTarget];
-    while (opts.length < 4) {
-        const r = V[Math.floor(Math.random() * V.length)];
-        if (!opts.includes(r)) opts.push(r);
-    }
-    opts.sort(() => Math.random() - 0.5);
-    $('#lOpts').innerHTML = opts.map(o =>
-        `<button class="option" onclick="checkL(this,'${o.h}')">${o.m} <small>(${o.h})</small></button>`
-    ).join('');
-}
-function playL() { if (lTarget) speak(lTarget.h); }
-function checkL(btn, h) {
-    document.querySelectorAll('#lOpts .option').forEach(b => b.style.pointerEvents = 'none');
-    if (h === lTarget.h) {
-        btn.classList.add('correct');
-        $('#lStatus').innerHTML = `<span style="color:var(--correct)">✨ Đúng! ${lTarget.p}</span>`;
-        lScore++;
-    } else {
-        btn.classList.add('incorrect');
-        $('#lStatus').innerHTML = `<span style="color:var(--incorrect)">❌ Sai. Đáp án: ${lTarget.m} (${lTarget.h} - ${lTarget.p})</span>`;
-    }
-    $('#lNext').style.display = 'block';
-}
-function nextL() { lIdx++; loadL(); }
-
-// ===== QUIZ =====
-let qScore = 0, qIdx = 0, qCur = null;
-function rnd(n, x) { const a = [x]; while (a.length < n) { const r = V[Math.floor(Math.random()*V.length)]; if (!a.includes(r)) a.push(r); } return a.sort(() => Math.random()-.5); }
-
-function startQ() {
-    qScore = 0; qIdx = 0; loadQ();
-}
-function loadQ() {
-    if (qIdx >= 10) {
-        const s = qScore >= 7;
-        $('#quiz').innerHTML = `<div class="quiz-card" style="text-align:center"><h2>${s?'🏆 Xuất sắc!':'📚 Cố lên!'}</h2><p style="font-size:1.5rem;margin:18px 0;color:var(--accent)">${qScore}/10</p><p style="color:var(--sub);margin-bottom:15px">${s?'Bạn đã thuộc bài tốt!':'Ôn lại flashcard rồi thử lại nhé!'}</p><button class="btn btn-primary" onclick="location.reload()">Làm lại</button></div>`;
-        return;
-    }
-    $('#qProg').innerText = `${qIdx+1}/10`; $('#qScore').innerText = qScore;
-    $('#qStatus').innerText = ''; $('#qNext').style.display = 'none';
-    const t = V[Math.floor(Math.random() * V.length)];
-    const type = Math.random() < 0.5;
-    qCur = t;
-    if (type) {
-        $('#qQuestion').innerHTML = `Từ <b style="color:var(--hanzi);font-size:1.6rem">${t.h}</b> (<span style="color:var(--pinyin)">${t.p}</span>) có nghĩa là gì?`;
-        $('#qOpts').innerHTML = rnd(4, t).map(o =>
-            `<button class="option" onclick="checkQ(this,'${o.h}')">${o.m}</button>`).join('');
-    } else {
-        $('#qQuestion').innerHTML = `Nghĩa "<b style="color:var(--correct)">${t.m}</b>" là chữ nào?`;
-        $('#qOpts').innerHTML = rnd(4, t).map(o =>
-            `<button class="option" onclick="checkQ(this,'${o.h}')">${o.h} <small style="color:var(--pinyin)">(${o.p})</small></button>`).join('');
-    }
-}
-function checkQ(btn, h) {
-    document.querySelectorAll('#qOpts .option').forEach(b => b.style.pointerEvents = 'none');
-    if (h === qCur.h) {
-        btn.classList.add('correct');
-        $('#qStatus').innerHTML = '<span style="color:var(--correct)">✨ Chính xác!</span>';
-        qScore++;
-    } else {
-        btn.classList.add('incorrect');
-        $('#qStatus').innerHTML = `<span style="color:var(--incorrect)">❌ Đáp án: ${qCur.h} (${qCur.p}) - ${qCur.m}</span>`;
-    }
-    $('#qNext').style.display = 'block';
-}
-function nextQ() { qIdx++; loadQ(); }
-
-// ===== NGHE + PINYIN + NGHĨA =====
-let lpScore = 0, lpIdx = 0, lpTarget = null, lpStep = 1;
-function startLP() { lpScore = 0; lpIdx = 0; loadLP(); }
-function loadLP() {
-    if (lpIdx >= 10) {
-        $('#lp').innerHTML = `<div class="quiz-card" style="text-align:center"><h2>🎉 Hoàn thành!</h2><p style="font-size:1.5rem;margin:18px 0;color:var(--accent)">${lpScore}/20</p><p style="color:var(--sub);margin-bottom:15px">Mỗi câu gồm nghe → Pinyin → nghĩa.</p><button class="btn btn-primary" onclick="location.reload()">Làm lại</button></div>`;
-        return;
-    }
-    lpTarget = V[Math.floor(Math.random() * V.length)]; lpStep = 1;
-    $('#lpProg').innerText = `${lpIdx+1}/10`; $('#lpScore').innerText = lpScore;
-    $('#lpStatus').innerText = ''; $('#lpNext').style.display = 'none';
-    renderLP();
-}
-function renderLP() {
-    const choices = rnd(4, lpTarget);
-    $('#lpPrompt').innerText = lpStep === 1 ? 'Bước 1: Nghe và chọn Pinyin đúng' : 'Bước 2: Chọn nghĩa đúng của Pinyin';
-    $('#lpOpts').innerHTML = choices.map(o => `<button class="option" onclick="checkLP(this,'${lpStep === 1 ? o.p : o.h}')">${lpStep === 1 ? o.p : `${o.m} <small>(${o.p})</small>`}</button>`).join('');
-}
-function playLP() { if (lpTarget) speak(lpTarget.h); }
-function checkLP(btn, answer) {
-    document.querySelectorAll('#lpOpts .option').forEach(b => b.style.pointerEvents = 'none');
-    const correct = lpStep === 1 ? lpTarget.p : lpTarget.h;
-    if (answer === correct) {
-        btn.classList.add('correct'); lpScore++; $('#lpScore').innerText = lpScore;
-        if (lpStep === 1) {
-            $('#lpStatus').innerHTML = `<span style="color:var(--correct)">✨ Đúng Pinyin: ${lpTarget.p}</span>`;
-            lpStep = 2; setTimeout(renderLP, 550);
-        } else {
-            $('#lpStatus').innerHTML = `<span style="color:var(--correct)">✨ Đúng! ${lpTarget.h} — ${lpTarget.p} — ${lpTarget.m}</span>`;
-            $('#lpNext').style.display = 'block';
-        }
-    } else {
-        btn.classList.add('incorrect');
-        $('#lpStatus').innerHTML = `<span style="color:var(--incorrect)">❌ Đáp án: ${lpTarget.p} — ${lpTarget.m}</span>`;
-        $('#lpNext').style.display = 'block';
-    }
-}
-function nextLP() { lpIdx++; loadLP(); }
-
 // ===== NAV =====
 function go(sec) {
     $('#homeView').style.display = sec === 'home' ? 'block' : 'none';
     $('#contentCard').style.display = sec === 'home' ? 'none' : 'block';
     document.querySelectorAll('.menu-item').forEach(m => m.classList.toggle('active', m.dataset.sec === sec));
     if (sec === 'home') return;
-    const tabs = { flash:'flash', listen:'listen', lp:'listen', quiz:'quiz', loop:'loop' };
+    const tabs = { flash:'flash', loop:'loop' };
     const tabId = tabs[sec];
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     $('#tab-' + tabId).classList.add('active');
     $('#' + tabId).classList.add('active');
-    if (tabId === 'listen') startL();
-    if (tabId === 'quiz') startQ();
-    if (tabId === 'lp') startLP();
+    if (tabId === 'loop') startLoop();
 }
 function switchTab(t) {
-    // tab button clicked: flash/listen/lp/quiz
+    // tab button clicked: flash/loop
     $('#homeView').style.display = 'none';
     $('#contentCard').style.display = 'block';
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     $('#tab-' + t).classList.add('active');
     $('#' + t).classList.add('active');
-    if (t === 'listen') startL();
-    if (t === 'quiz') startQ();
-    if (t === 'lp') startLP();
     if (t === 'loop') startLoop();
-    // sidebar highlight: lp thuộc nhóm Nghe
-    const map = { flash:'flash', listen:'listen', lp:'listen', quiz:'quiz', loop:'loop' };
+    const map = { flash:'flash', loop:'loop' };
     document.querySelectorAll('.menu-item').forEach(m => m.classList.toggle('active', m.dataset.sec === map[t]));
 }
 
@@ -954,10 +787,11 @@ function loopShow() {
         return;
     }
     const v = loopQ[0];
-    $('#loCat').innerText = v.c;
-    $('#loHanzi').innerText = v.h;
-    $('#loPinyin').innerText = v.p;
-    $('#loStatus').innerText = '';
+        $('#loCat').innerText = v.c;
+        $('#loHanzi').innerText = v.h;
+        $('#loPinyin').innerText = v.p;
+        $('#loMeaning').innerText = v.m;
+        $('#loStatus').innerText = '';
     $('#loDone').innerText = loopDone;
     $('#loTotal').innerText = V.length;
     $('#loLeft').innerText = loopQ.length;
