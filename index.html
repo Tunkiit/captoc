@@ -401,14 +401,95 @@ const $ = s => document.querySelector(s);
 
 // ===== TOÀN BỘ TỪ VỰNG GIÁO TRÌNH PHƯƠNG PHI (từ tài liệu) =====
 const V = [
-// Quốc gia & nơi chốn
+{ h:"好看", p:"hǎokàn", m:"đẹp, hay (nhìn)", c:"Tính từ", n:"" },
+{ h:"好吃", p:"hǎochī", m:"ngon", c:"Tính từ", n:"" },
+{ h:"好听", p:"hǎotīng", m:"hay (nghe)", c:"Tính từ", n:"" },
+{ h:"好玩", p:"hǎowán", m:"vui, thú vị", c:"Tính từ", n:"" },
+{ h:"小", p:"xiǎo", m:"nhỏ", c:"Tính từ", n:"" },
+{ h:"少", p:"shǎo", m:"ít", c:"Tính từ", n:"" },
+{ h:"高兴", p:"gāoxìng", m:"vui vẻ", c:"Tính từ", n:"" },
+{ h:"快乐", p:"kuàilè", m:"vui vẻ, hạnh phúc", c:"Tính từ", n:"" },
+{ h:"累", p:"lèi", m:"mệt", c:"Tính từ", n:"" },
+{ h:"漂亮", p:"piàoliang", m:"xinh đẹp", c:"Tính từ", n:"" },
+{ h:"帅", p:"shuài", m:"đẹp trai", c:"Tính từ", n:"" },
+{ h:"长", p:"cháng", m:"dài", c:"Tính từ", n:"" },
+{ h:"高", p:"gāo", m:"cao", c:"Tính từ", n:"" },
+{ h:"贵", p:"guì", m:"đắt", c:"Tính từ", n:"" },
+{ h:"便宜", p:"piányi", m:"rẻ", c:"Tính từ", n:"" },
+{ h:"旧", p:"jiù", m:"cũ", c:"Tính từ", n:"" },
+{ h:"近", p:"jìn", m:"gần", c:"Tính từ", n:"" },
+{ h:"远", p:"yuǎn", m:"xa", c:"Tính từ", n:"" },
+{ h:"忙", p:"máng", m:"bận", c:"Tính từ", n:"" },
+{ h:"快", p:"kuài", m:"nhanh", c:"Tính từ", n:"" },
+{ h:"慢", p:"màn", m:"chậm", c:"Tính từ", n:"" },
+{ h:"我", p:"wǒ", m:"tôi", c:"Đại từ", n:"" },
+{ h:"你", p:"nǐ", m:"bạn, mày", c:"Đại từ", n:"" },
+{ h:"您", p:"nín", m:"ngài (trang trọng)", c:"Đại từ", n:"= nǐ (kính ngữ)" },
+{ h:"他", p:"tā", m:"anh ấy", c:"Đại từ", n:"" },
+{ h:"她", p:"tā", m:"cô ấy", c:"Đại từ", n:"" },
+{ h:"它", p:"tā", m:"nó (vật, con vật)", c:"Đại từ", n:"" },
+{ h:"们", p:"men", m:"hậu tố số nhiều", c:"Đại từ", n:"wǒmen: chúng tôi, nǐmen: các bạn" },
+{ h:"的", p:"de", m:"của (sở hữu)", c:"Trợ từ", n:"" },
+{ h:"吗", p:"ma", m:"trợ từ hỏi có/không", c:"Trợ từ", n:"" },
+{ h:"呢", p:"ne", m:"còn... thì sao?", c:"Trợ từ", n:"" },
+{ h:"吧", p:"ba", m:"nhé (đề nghị)", c:"Trợ từ", n:"" },
+{ h:"得", p:"de", m:"trợ từ chỉ mức độ/cách thức", c:"Trợ từ", n:"" },
+{ h:"着", p:"zhe", m:"đang (tiếp diễn)", c:"Trợ từ", n:"" },
+{ h:"了", p:"le", m:"rồi (hoàn thành)", c:"Trợ từ", n:"" },
+{ h:"不", p:"bù", m:"không", c:"Phó từ", n:"" },
+{ h:"没", p:"méi", m:"chưa, không", c:"Phó từ", n:"没有: không có" },
+{ h:"也", p:"yě", m:"cũng", c:"Phó từ", n:"" },
+{ h:"很", p:"hěn", m:"rất", c:"Phó từ", n:"" },
+{ h:"非常", p:"fēicháng", m:"vô cùng", c:"Phó từ", n:"" },
+{ h:"太", p:"tài", m:"quá", c:"Phó từ", n:"太...了: quá..." },
+{ h:"都", p:"dōu", m:"đều", c:"Phó từ", n:"" },
+{ h:"别", p:"bié", m:"đừng", c:"Phó từ", n:"" },
+{ h:"还", p:"hái", m:"vẫn còn, cũng", c:"Phó từ", n:"还有: còn có, 还是: hay là" },
+{ h:"就", p:"jiù", m:"(không dịch)", c:"Phó từ", n:"强调, liền" },
+{ h:"已经", p:"yǐjīng", m:"đã (rồi)", c:"Phó từ", n:"已经...了: đã... rồi" },
+{ h:"一起", p:"yīqǐ", m:"cùng nhau", c:"Phó từ", n:"" },
+{ h:"再", p:"zài", m:"lại, lần nữa", c:"Phó từ", n:"再见: hẹn gặp lại" },
+{ h:"真", p:"zhēn", m:"thật là, quả là", c:"Phó từ", n:"" },
+{ h:"在", p:"zài", m:"ở tại; đang", c:"Phó từ", n:"+ nơi chốn: ở; + động từ: đang" },
+{ h:"最", p:"zuì", m:"nhất", c:"Phó từ", n:"+ tính từ: nhất" },
+{ h:"零", p:"líng", m:"số không", c:"Số từ", n:"" },
+{ h:"一", p:"yī", m:"một", c:"Số từ", n:"" },
+{ h:"二", p:"èr", m:"hai", c:"Số từ", n:"" },
+{ h:"三", p:"sān", m:"ba", c:"Số từ", n:"" },
+{ h:"四", p:"sì", m:"bốn", c:"Số từ", n:"" },
+{ h:"五", p:"wǔ", m:"năm", c:"Số từ", n:"" },
+{ h:"六", p:"liù", m:"sáu", c:"Số từ", n:"" },
+{ h:"七", p:"qī", m:"bảy", c:"Số từ", n:"" },
+{ h:"八", p:"bā", m:"tám", c:"Số từ", n:"" },
+{ h:"九", p:"jiǔ", m:"chín", c:"Số từ", n:"" },
+{ h:"十", p:"shí", m:"mười", c:"Số từ", n:"" },
+{ h:"百", p:"bǎi", m:"trăm", c:"Số từ", n:"" },
+{ h:"千", p:"qiān", m:"nghìn", c:"Số từ", n:"" },
+{ h:"万", p:"wàn", m:"vạn", c:"Số từ", n:"" },
+{ h:"第一", p:"dì yī", m:"thứ nhất", c:"Số từ", n:"" },
+{ h:"两", p:"liǎng", m:"hai (số lượng)", c:"Số từ", n:"200: liǎng bǎi" },
+{ h:"和", p:"hé", m:"và", c:"Liên từ", n:"" },
+{ h:"虽然", p:"suīrán", m:"mặc dù", c:"Liên từ", n:"虽然...但是...: mặc dù... nhưng..." },
+{ h:"但是", p:"dànshì", m:"nhưng", c:"Liên từ", n:"" },
+{ h:"因为", p:"yīnwèi", m:"bởi vì", c:"Liên từ", n:"因为...所以...: vì... nên..." },
+{ h:"所以", p:"suǒyǐ", m:"nên, vì vậy", c:"Liên từ", n:"" },
+{ h:"谢谢", p:"xièxie", m:"cảm ơn", c:"Cụm từ", n:"" },
+{ h:"不客气", p:"búkèqi", m:"không có gì", c:"Cụm từ", n:"" },
+{ h:"对不起", p:"duìbùqǐ", m:"xin lỗi", c:"Cụm từ", n:"" },
+{ h:"没关系", p:"méiguānxi", m:"không sao", c:"Cụm từ", n:"" },
+{ h:"等一下", p:"děng yíxià", m:"đợi một chút", c:"Cụm từ", n:"" },
+{ h:"怎么", p:"zěnme", m:"làm sao, thế nào", c:"Đại từ nghi vấn", n:"+ động từ" },
+{ h:"什么", p:"shénme", m:"cái gì", c:"Đại từ nghi vấn", n:"+ danh từ" },
+{ h:"几", p:"jǐ", m:"mấy, vài", c:"Đại từ nghi vấn", n:"" },
+{ h:"怎么样", p:"zěnmeyàng", m:"như thế nào", c:"Đại từ nghi vấn", n:"" },
+{ h:"为什么", p:"wèishénme", m:"tại sao", c:"Đại từ nghi vấn", n:"" },
+{ h:"谁", p:"shéi", m:"ai", c:"Đại từ nghi vấn", n:"" },
 { h:"中国", p:"Zhōngguó", m:"Trung Quốc", c:"Quốc gia", n:"" },
 { h:"美国", p:"Měiguó", m:"Mỹ", c:"Quốc gia", n:"" },
 { h:"英国", p:"Yīngguó", m:"Anh (nước Anh)", c:"Quốc gia", n:"" },
 { h:"日本", p:"Rìběn", m:"Nhật Bản", c:"Quốc gia", n:"" },
 { h:"北京", p:"Běijīng", m:"Bắc Kinh", c:"Quốc gia", n:"" },
 { h:"越南", p:"Yuènán", m:"Việt Nam", c:"Quốc gia", n:"" },
-// Gia đình & người
 { h:"家", p:"jiā", m:"nhà, gia đình", c:"Gia đình", n:"" },
 { h:"爸爸", p:"bàba", m:"bố", c:"Gia đình", n:"" },
 { h:"妈妈", p:"māma", m:"mẹ", c:"Gia đình", n:"" },
@@ -430,7 +511,6 @@ const V = [
 { h:"小姐", p:"xiǎojiě", m:"cô (Ms.)", c:"Người", n:"" },
 { h:"男孩", p:"nánhái", m:"bé trai", c:"Người", n:"" },
 { h:"女孩", p:"nǚhái", m:"bé gái", c:"Người", n:"" },
-// Đồ vật
 { h:"东西", p:"dōngxi", m:"đồ vật, đồ đạc", c:"Đồ vật", n:"" },
 { h:"杯子", p:"bēizi", m:"cốc, ly", c:"Đồ vật", n:"" },
 { h:"椅子", p:"yǐzi", m:"ghế", c:"Đồ vật", n:"" },
@@ -448,20 +528,17 @@ const V = [
 { h:"眼睛", p:"yǎnjing", m:"mắt", c:"Đồ vật", n:"" },
 { h:"衣服", p:"yīfu", m:"quần áo", c:"Đồ vật", n:"" },
 { h:"钥匙", p:"yàoshi", m:"chìa khóa", c:"Đồ vật", n:"" },
-// Điện tử
 { h:"电视", p:"diànshì", m:"tivi", c:"Điện tử", n:"" },
 { h:"电脑", p:"diànnǎo", m:"máy tính", c:"Điện tử", n:"" },
 { h:"电影", p:"diànyǐng", m:"phim", c:"Điện tử", n:"" },
 { h:"电话", p:"diànhuà", m:"điện thoại", c:"Điện tử", n:"" },
 { h:"手机", p:"shǒujī", m:"điện thoại di động", c:"Điện tử", n:"" },
-// Đồ ăn
 { h:"菜", p:"cài", m:"món ăn, rau", c:"Đồ ăn", n:"" },
 { h:"米饭", p:"mǐfàn", m:"cơm", c:"Đồ ăn", n:"" },
 { h:"面条", p:"miàntiáo", m:"mì", c:"Đồ ăn", n:"" },
 { h:"饺子", p:"jiǎozi", m:"sủi cảo", c:"Đồ ăn", n:"" },
 { h:"馒头", p:"mántou", m:"màn thầu", c:"Đồ ăn", n:"" },
 { h:"包子", p:"bāozi", m:"bánh bao", c:"Đồ ăn", n:"" },
-// Thời gian (trang 6)
 { h:"号", p:"hào", m:"ngày (mùng)", c:"Thời gian", n:"8月28号: ngày 28 tháng 8" },
 { h:"星期", p:"xīngqī", m:"tuần, thứ", c:"Thời gian", n:"星期天: Chủ nhật" },
 { h:"昨天", p:"zuótiān", m:"hôm qua", c:"Thời gian", n:"" },
@@ -472,7 +549,6 @@ const V = [
 { h:"中午", p:"zhōngwǔ", m:"buổi trưa", c:"Thời gian", n:"" },
 { h:"下午", p:"xiàwǔ", m:"buổi chiều", c:"Thời gian", n:"" },
 { h:"晚上", p:"wǎnshang", m:"buổi tối", c:"Thời gian", n:"" },
-// Trường học & ngôn ngữ
 { h:"学校", p:"xuéxiào", m:"trường học", c:"Trường học", n:"" },
 { h:"教室", p:"jiàoshì", m:"phòng học, lớp học", c:"Trường học", n:"" },
 { h:"考试", p:"kǎoshì", m:"kỳ thi, bài thi", c:"Trường học", n:"" },
@@ -482,7 +558,6 @@ const V = [
 { h:"汉语", p:"Hànyǔ", m:"tiếng Hán", c:"Trường học", n:"" },
 { h:"中文", p:"Zhōngwén", m:"tiếng Trung", c:"Trường học", n:"" },
 { h:"汉字", p:"Hànzì", m:"chữ Hán", c:"Trường học", n:"" },
-// Sức khỏe & thời tiết
 { h:"天气", p:"tiānqì", m:"thời tiết", c:"Sức khỏe & thời tiết", n:"" },
 { h:"晴天", p:"qíngtiān", m:"ngày nắng", c:"Sức khỏe & thời tiết", n:"" },
 { h:"阴天", p:"yīntiān", m:"ngày u ám", c:"Sức khỏe & thời tiết", n:"" },
@@ -493,7 +568,6 @@ const V = [
 { h:"医院", p:"yīyuàn", m:"bệnh viện", c:"Sức khỏe & thời tiết", n:"" },
 { h:"生病", p:"shēngbìng", m:"bị bệnh", c:"Sức khỏe & thời tiết", n:"" },
 { h:"药", p:"yào", m:"thuốc", c:"Sức khỏe & thời tiết", n:"" },
-// Khác (danh từ)
 { h:"公司", p:"gōngsī", m:"công ty", c:"Khác", n:"" },
 { h:"错", p:"cuò", m:"sai", c:"Khác", n:"" },
 { h:"事情", p:"shìqíng", m:"sự việc, chuyện", c:"Khác", n:"" },
@@ -501,13 +575,11 @@ const V = [
 { h:"失望", p:"shīwàng", m:"thất vọng", c:"Khác", n:"" },
 { h:"颜色", p:"yánsè", m:"màu sắc", c:"Khác", n:"" },
 { h:"意思", p:"yìsi", m:"ý nghĩa", c:"Khác", n:"有意思 yǒuyìsi: thú vị" },
-// Màu sắc
 { h:"黑", p:"hēi", m:"đen", c:"Màu sắc", n:"" },
 { h:"白", p:"bái", m:"trắng", c:"Màu sắc", n:"" },
 { h:"红", p:"hóng", m:"đỏ", c:"Màu sắc", n:"" },
 { h:"蓝", p:"lán", m:"xanh lam", c:"Màu sắc", n:"" },
 { h:"绿", p:"lǜ", m:"xanh lục", c:"Màu sắc", n:"" },
-// Phương hướng & mùa
 { h:"东", p:"dōng", m:"phía đông", c:"Hướng & mùa", n:"" },
 { h:"西", p:"xī", m:"phía tây", c:"Hướng & mùa", n:"" },
 { h:"南", p:"nán", m:"phía nam", c:"Hướng & mùa", n:"" },
@@ -516,7 +588,6 @@ const V = [
 { h:"夏", p:"xià", m:"mùa hè", c:"Hướng & mùa", n:"" },
 { h:"秋", p:"qiū", m:"mùa thu", c:"Hướng & mùa", n:"" },
 { h:"冬", p:"dōng", m:"mùa đông", c:"Hướng & mùa", n:"" },
-// Động từ 1
 { h:"是", p:"shì", m:"là", c:"Động từ", n:"" },
 { h:"对", p:"duì", m:"đúng; đối với", c:"Động từ", n:"" },
 { h:"吃", p:"chī", m:"ăn", c:"Động từ", n:"" },
@@ -595,9 +666,9 @@ const V = [
 { h:"下雨", p:"xiàyǔ", m:"trời mưa", c:"Động từ", n:"" },
 { h:"下雪", p:"xiàxuě", m:"trời tuyết", c:"Động từ", n:"" },
 { h:"开车", p:"kāichē", m:"lái xe", c:"Động từ", n:"" },
-{ h:"骑车", p:"qíchē", m:"đi xe đạp/xe máy", c:"Động từ", n:"" }
+{ h:"骑车", p:"qíchē", m:"đi xe đạp/xe máy", c:"Động từ", n:"" },
+{ h:"好", p:"hǎo", m:"tốt, ổn", c:"Tính từ", n:"" }
 ];
-
 // ===== FLASHCARD =====
 let list = [...V], idx = 0, flipped = false;
 let known = {}; try { known = JSON.parse(localStorage.getItem('pp_known') || '{}'); } catch(e) {}
@@ -881,8 +952,8 @@ function exportProgress() {
 }
 function importProgress(ev) {
     const f = ev.target.files[0];
-    if (!f) return;
-    const reader = new FileReader();
+        if (!f) return;
+        const reader = new FileReader();
     reader.onload = e => {
         try {
             const data = JSON.parse(e.target.result);
