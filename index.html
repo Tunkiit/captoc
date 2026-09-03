@@ -94,6 +94,22 @@ body { background: #f5f9ff; color: #1e2a3a; min-height: 100vh; display: flex; }
 .sr-item .sr-m { color: #66788f; font-size: .85rem; }
 .sr-item .sr-play { background: #e3edff; border-radius: 999px; padding: 4px 10px; font-size: .8rem; color: #2b5ce6; font-weight: 700; }
 .sr-none { text-align: center; padding: 14px; color: #8292ab; font-size: .9rem; }
+.imp-words { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.imp-card {
+    background: #f8fbff; border: 1px solid #e3ecf7; border-radius: 14px; padding: 10px 14px;
+    cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 10px;
+}
+.imp-card:hover { background: #eef4ff; border-color: #2b5ce6; transform: translateY(-2px); }
+.imp-card .ic-h { font-size: 1.15rem; font-weight: 700; color: #1c2b4a; }
+.imp-card .ic-p { color: #2b5ce6; font-weight: 600; font-size: .85rem; }
+.imp-card .ic-m { color: #66788f; font-size: .82rem; margin-left: auto; text-align: right; }
+.imp-card .ic-cat { font-size: .68rem; background: #e3edff; color: #2b5ce6; border-radius: 999px; padding: 2px 8px; font-weight: 700; white-space: nowrap; }
+.imp-sentences { display: flex; flex-direction: column; gap: 10px; }
+.imp-sen { background: #f8fbff; border: 1px solid #e3ecf7; border-radius: 14px; padding: 12px 16px; }
+.imp-sen .is-zh { font-size: 1.05rem; font-weight: 600; color: #1c2b4a; }
+.imp-sen .is-py { color: #2b5ce6; font-size: .88rem; margin-top: 2px; }
+.imp-sen .is-vi { color: #66788f; font-size: .88rem; margin-top: 2px; }
+.imp-sen .is-tag { font-size: .68rem; background: #dcfce7; color: #16a34a; border-radius: 999px; padding: 2px 8px; font-weight: 700; float: right; }
 .filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
 .filter-btn, .mem-btn, .type-btn {
     background: #f0f4fc; border: 1px solid transparent; color: #5b6b85; padding: 6px 13px; border-radius: 999px;
@@ -229,7 +245,7 @@ body.dark .chip { background: #262c3e; border-color: #343c52; box-shadow: 0 4px 
 body.dark .greeting p, body.dark .stat .s-label, body.dark .stat .s-sub, body.dark .progress,
 body.dark .listen-note, body.dark .score, body.dark .hint { color: #93a1bd; }
 body.dark .tab-btn, body.dark .filter-btn, body.dark .mem-btn, body.dark .type-btn, body.dark .btn, body.dark .speak { background: #2c3346; color: #b9c4da; }
-body.dark .tab-btn.active, body.dark .btn-primary { background: #2b5ce6; color: #fff; }
+body.dark .tab-btn.active, body.dark .btn-primary, body.dark #tab-important.active { background: #2b5ce6; color: #fff; }
 body.dark .filter-btn.active, body.dark .mem-btn.active, body.dark .type-btn.active { background: #2b3a66; color: #8ab4ff; }
 body.dark .face { background: linear-gradient(145deg, #272d41, #232a3d); border-color: #343c52; }
 body.dark .back { background: linear-gradient(145deg, #2a2e44, #282a40); }
@@ -337,6 +353,7 @@ body.dark .audio-btn { box-shadow: 0 6px 18px rgba(0,0,0,.4); }
     <div class="section-card" id="contentCard" style="display:none">
         <div class="tabs">
             <button class="tab-btn active" id="tab-flash" onclick="switchTab('flash')">🃏 Flashcard</button>
+            <button class="tab-btn" id="tab-important" onclick="switchTab('important')">⭐ Quan trọng</button>
             <button class="tab-btn" id="tab-loop" onclick="switchTab('loop')">🔄 Luyện vòng</button>
         </div>
 
@@ -375,6 +392,14 @@ body.dark .audio-btn { box-shadow: 0 6px 18px rgba(0,0,0,.4); }
                 <button class="btn" onclick="nav(1)">Sau ▶</button>
                 <button class="btn btn-primary" onclick="shuffle()">🔀 Tráo</button>
             </div>
+        </div>
+
+        <div id="important" class="tab-content">
+            <div class="section-title" style="margin-bottom:10px"><span class="st-ico" style="background:#fffbeb">⭐</span> Từ hay ra thi HSK 2</div>
+            <div id="impWords" class="imp-words"></div>
+            <hr class="divider">
+            <div class="section-title" style="margin-bottom:10px"><span class="st-ico" style="background:#e3edff">💬</span> Câu hay ra thi HSK 2</div>
+            <div id="impSentences" class="imp-sentences"></div>
         </div>
 
         <div id="loop" class="tab-content">
@@ -798,7 +823,14 @@ const V = [
     { h:"下星期", p:"xià xīngqī", m:"tuần sau", c:"Thời gian", n:"" },
     { h:"周末", p:"zhōumò", m:"cuối tuần", c:"Thời gian", n:"" },
     { h:"早上好", p:"zǎoshang hǎo", m:"chào buổi sáng", c:"Cụm từ", n:"" },
-    { h:"晚安", p:"wan an", m:"chúc ngủ ngon", c:"Cụm từ", n:"" }];
+    { h:"晚安", p:"wan an", m:"chúc ngủ ngon", c:"Cụm từ", n:"" },
+    { h:"我们", p:"wǒmen", m:"chúng tôi, chúng ta", c:"Đại từ", n:"" },
+    { h:"你们", p:"nǐmen", m:"các bạn", c:"Đại từ", n:"" },
+    { h:"他们", p:"tāmen", m:"họ, bọn họ", c:"Đại từ", n:"" },
+    { h:"自己", p:"zìjǐ", m:"tự mình, bản thân", c:"Đại từ", n:"" },
+    { h:"多少", p:"duōshao", m:"bao nhiêu", c:"Đại từ nghi vấn", n:"" },
+    { h:"时候", p:"shíhou", m:"lúc, khi", c:"Thời gian", n:"" },
+    { h:"见面", p:"jiànmiàn", m:"gặp nhau", c:"Động từ", n:"" }];
 // ===== FLASHCARD =====
 let list = [...V], idx = 0, flipped = false;
 let known = {}; try { known = JSON.parse(localStorage.getItem('pp_known') || '{}'); } catch(e) {}
@@ -931,6 +963,7 @@ function switchTab(t) {
     $('#tab-' + t).classList.add('active');
     $('#' + t).classList.add('active');
     if (t === 'loop') startLoop();
+    if (t === 'important') renderImportant();
     const map = { flash:'flash', loop:'loop' };
     document.querySelectorAll('.menu-item').forEach(m => m.classList.toggle('active', m.dataset.sec === map[t]));
 }
@@ -1003,6 +1036,52 @@ function doSearch(q) {
             <span class="sr-play">🔊</span>
         </div>`).join('');
     box.style.display = 'block';
+}
+
+// ===== TAB QUAN TRỌNG =====
+const IMP_SENTENCES = [
+    { zh:'我是越南人。', py:'wǒ shì yuènán rén', vi:'Tôi là người Việt Nam', tag:'Giới thiệu' },
+    { zh:'你叫什么名字？', py:'nǐ jiào shénme míngzi', vi:'Bạn tên gì?', tag:'Hỏi tên' },
+    { zh:'现在几点？', py:'xiànzài jǐ diǎn', vi:'Bây giờ mấy giờ?', tag:'Hỏi giờ' },
+    { zh:'今天星期几？', py:'jīntiān xīngqī jǐ', vi:'Hôm nay thứ mấy?', tag:'Hỏi ngày' },
+    { zh:'这个多少钱？', py:'zhège duōshao qián', vi:'Cái này bao nhiêu tiền?', tag:'Mua sắm' },
+    { zh:'太贵了，便宜一点吧。', py:'tài guì le, piányi yìdiǎn ba', vi:'Đắt quá, rẻ một chút đi', tag:'Mua sắm' },
+    { zh:'你去哪儿？', py:'nǐ qù nǎr', vi:'Bạn đi đâu?', tag:'Hỏi đường' },
+    { zh:'我坐公共汽车去。', py:'wǒ zuò gōnggòngqìchē qù', vi:'Tôi đi xe buýt', tag:'Giao thông' },
+    { zh:'你吃饭了吗？', py:'nǐ chī fàn le ma', vi:'Bạn ăn cơm chưa?', tag:'Thăm hỏi' },
+    { zh:'我很好，谢谢！', py:'wǒ hěn hǎo, xièxie', vi:'Tôi khỏe, cảm ơn!', tag:'Thăm hỏi' },
+    { zh:'今天天气怎么样？', py:'jīntiān tiānqì zěnmeyàng', vi:'Thời tiết hôm nay thế nào?', tag:'Thời tiết' },
+    { zh:'明天会下雨吗？', py:'míngtiān huì xiàyǔ ma', vi:'Mai có mưa không?', tag:'Thời tiết' },
+    { zh:'他会说汉语。', py:'tā huì shuō hànyǔ', vi:'Anh ấy biết nói tiếng Trung', tag:'Năng lực' },
+    { zh:'我可以进来吗？', py:'wǒ kěyǐ jìnlái ma', vi:'Tôi vào được không?', tag:'Xin phép' },
+    { zh:'我想买一本书。', py:'wǒ xiǎng mǎi yì běn shū', vi:'Tôi muốn mua một quyển sách', tag:'Mua sắm' },
+    { zh:'他要一杯咖啡。', py:'tā yào yì bēi kāfēi', vi:'Anh ấy muốn một ly cà phê', tag:'Ăn uống' },
+    { zh:'因为下雨，所以没去。', py:'yīnwèi xiàyǔ, suǒyǐ méi qù', vi:'Vì mưa nên không đi', tag:'Nguyên nhân' },
+    { zh:'虽然很难，但是我能学会。', py:'suīrán hěn nán, dànshì wǒ néng xuéhuì', vi:'Dù khó nhưng tôi học được', tag:'Nhấn mạnh' },
+    { zh:'先写字，然后读书。', py:'xiān xiě zì, ránhòu dúshū', vi:'Viết chữ trước, rồi đọc sách', tag:'Trình tự' },
+    { zh:'爸爸比妈妈忙。', py:'bàba bǐ māma máng', vi:'Bố bận hơn mẹ', tag:'So sánh' },
+    { zh:'我学中文两年了。', py:'wǒ xué zhōngwén liǎng nián le', vi:'Tôi học tiếng Trung 2 năm rồi', tag:'Thời gian' },
+    { zh:'你几点起床？', py:'nǐ jǐ diǎn qǐchuáng', vi:'Bạn mấy giờ dậy?', tag:'Ngày thường' },
+    { zh:'我上午上班，下午上课。', py:'wǒ shàngwǔ shàngbān, xiàwǔ shàngkè', vi:'Sáng đi làm, chiều đi học', tag:'Ngày thường' },
+    { zh:'对不起，我来晚了。', py:'duìbùqǐ, wǒ lái wǎn le', vi:'Xin lỗi, tôi đến muộn', tag:'Xin lỗi' },
+];
+function renderImportant() {
+    const cats = ['Tính từ', 'Đại từ', 'Phó từ', 'Lượng từ', 'Liên từ', 'Cụm từ', 'Đại từ nghi vấn', 'Số từ', 'Từ nối & Trợ từ', 'Số & Lượng từ'];
+    const words = V.filter(v => cats.includes(v.c));
+    $('#impWords').innerHTML = words.map(v => `
+        <div class="imp-card" onclick="speak('${v.h}')">
+            <span class="ic-h">${v.h}</span>
+            <span class="ic-p">${v.p}</span>
+            <span class="ic-cat">${v.c}</span>
+            <span class="ic-m">${v.m}</span>
+        </div>`).join('');
+    $('#impSentences').innerHTML = IMP_SENTENCES.map(sen => `
+        <div class="imp-sen" onclick="speak('${sen.zh.replace(/[。？！，、]/g,'')}')">
+            <span class="is-tag">${sen.tag}</span>
+            <div class="is-zh">${sen.zh}</div>
+            <div class="is-py">${sen.py}</div>
+            <div class="is-vi">${sen.vi}</div>
+        </div>`).join('');
 }
 
 // ===== STATS & THEME =====
