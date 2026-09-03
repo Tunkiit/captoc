@@ -94,6 +94,17 @@ body { background: #f5f9ff; color: #1e2a3a; min-height: 100vh; display: flex; }
 .sr-item .sr-m { color: #66788f; font-size: .85rem; }
 .sr-item .sr-play { background: #e3edff; border-radius: 999px; padding: 4px 10px; font-size: .8rem; color: #2b5ce6; font-weight: 700; }
 .sr-none { text-align: center; padding: 14px; color: #8292ab; font-size: .9rem; }
+.imp-pairs { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+.imp-pair {
+    background: #fff; border: 1px solid #e3ecf7; border-radius: 14px; padding: 10px;
+    display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(80,110,180,.06);
+}
+.ip-side { flex: 1; text-align: center; cursor: pointer; padding: 6px; border-radius: 10px; transition: background .15s; }
+.ip-side:hover { background: #eef4ff; }
+.ip-side .ip-h { font-size: 1.6rem; font-weight: 800; color: #1c2b4a; }
+.ip-side .ip-p { color: #2b5ce6; font-weight: 600; font-size: .85rem; }
+.ip-side .ip-m { color: #66788f; font-size: .82rem; }
+.ip-vs { color: #b6c4da; font-weight: 700; font-size: 1.1rem; }
 .imp-words { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
 .imp-card {
     background: #f8fbff; border: 1px solid #e3ecf7; border-radius: 14px; padding: 10px 14px;
@@ -395,7 +406,10 @@ body.dark .audio-btn { box-shadow: 0 6px 18px rgba(0,0,0,.4); }
         </div>
 
         <div id="important" class="tab-content">
-            <div class="section-title" style="margin-bottom:10px"><span class="st-ico" style="background:#fffbeb">⭐</span> Từ hay ra thi HSK 2</div>
+            <div class="section-title" style="margin-bottom:10px"><span class="st-ico" style="background:#fffbeb">⭐</span> Cặp trái nghĩa học theo cặp</div>
+            <div id="impPairs" class="imp-pairs"></div>
+            <hr class="divider">
+            <div class="section-title" style="margin-bottom:10px"><span class="st-ico" style="background:#e3edff">⭐</span> Từ hay ra thi HSK 2</div>
             <div id="impWords" class="imp-words"></div>
             <hr class="divider">
             <div class="section-title" style="margin-bottom:10px"><span class="st-ico" style="background:#e3edff">💬</span> Câu hay ra thi HSK 2</div>
@@ -1066,8 +1080,35 @@ const IMP_SENTENCES = [
     { zh:'对不起，我来晚了。', py:'duìbùqǐ, wǒ lái wǎn le', vi:'Xin lỗi, tôi đến muộn', tag:'Xin lỗi' },
 ];
 function renderImportant() {
+    // Cặp tính từ trái nghĩa học theo cặp
+    const PAIRS = [
+        ['大','小'], ['多','少'], ['冷','热'], ['对','错'], ['贵','便宜'],
+        ['新','旧'], ['近','远'], ['快','慢'], ['长','短'], ['高','矮'],
+        ['好','坏'], ['买','卖'], ['上','下'], ['左','右'], ['里','外'],
+        ['前','后'], ['东','西'], ['南','北'],
+    ];
     const cats = ['Tính từ', 'Đại từ', 'Phó từ', 'Lượng từ', 'Liên từ', 'Cụm từ', 'Đại từ nghi vấn', 'Số từ', 'Từ nối & Trợ từ', 'Số & Lượng từ'];
-    const words = V.filter(v => cats.includes(v.c));
+    const pairSet = new Set(PAIRS.flat());
+    const rest = V.filter(v => cats.includes(v.c) && !pairSet.has(v.h));
+    const find = h => V.find(v => v.h === h);
+    $('#impPairs').innerHTML = PAIRS.filter(p => find(p[0]) && find(p[1])).map(([a, b]) => {
+        const va = find(a), vb = find(b);
+        return `
+        <div class="imp-pair">
+            <div class="ip-side" onclick="speak('${va.h}')">
+                <div class="ip-h">${va.h}</div>
+                <div class="ip-p">${va.p}</div>
+                <div class="ip-m">${va.m}</div>
+            </div>
+            <div class="ip-vs">↔</div>
+            <div class="ip-side" onclick="speak('${vb.h}')">
+                <div class="ip-h">${vb.h}</div>
+                <div class="ip-p">${vb.p}</div>
+                <div class="ip-m">${vb.m}</div>
+            </div>
+        </div>`;
+    }).join('');
+    const words = rest;
     $('#impWords').innerHTML = words.map(v => `
         <div class="imp-card" onclick="speak('${v.h}')">
             <span class="ic-h">${v.h}</span>
