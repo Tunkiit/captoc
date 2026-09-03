@@ -337,8 +337,6 @@ body.dark .audio-btn { box-shadow: 0 6px 18px rgba(0,0,0,.4); }
     <div class="section-card" id="contentCard" style="display:none">
         <div class="tabs">
             <button class="tab-btn active" id="tab-flash" onclick="switchTab('flash')">🃏 Flashcard</button>
-            <button class="tab-btn" id="tab-don" onclick="switchTab('don')">🔤 Từ đơn</button>
-            <button class="tab-btn" id="tab-ghep" onclick="switchTab('ghep')">🔗 Từ ghép</button>
             <button class="tab-btn" id="tab-loop" onclick="switchTab('loop')">🔄 Luyện vòng</button>
         </div>
 
@@ -784,11 +782,27 @@ const V = [
     { h:"新年", t:"ghép", p:"xīnnián", m:"năm mới", c:"Thời gian", n:"" },
     { h:"过年", t:"ghép", p:"guònián", m:"đón Tết, ăn Tết", c:"Thời gian", n:"" },
     { h:"年龄", t:"ghép", p:"niánlíng", m:"tuổi tác", c:"Thời gian", n:"" },
-    { h:"年级", t:"ghép", p:"niánjí", m:"khối lớp (trường)", c:"Thời gian", n:"" }];
+    { h:"年级", t:"ghép", p:"niánjí", m:"khối lớp (trường)", c:"Thời gian", n:"" },
+    { h:"今晚", p:"jīnwǎn", m:"tối nay", c:"Thời gian", n:"" },
+    { h:"明晚", p:"míngwǎn", m:"tối mai", c:"Thời gian", n:"" },
+    { h:"昨晚", p:"zuówǎn", m:"tối hôm qua", c:"Thời gian", n:"" },
+    { h:"今天早上", p:"jīntiān zǎoshang", m:"sáng nay", c:"Thời gian", n:"" },
+    { h:"明天早上", p:"míngtiān zǎoshang", m:"sáng mai", c:"Thời gian", n:"" },
+    { h:"明天下午", p:"míngtiān xiàwǔ", m:"chiều mai", c:"Thời gian", n:"" },
+    { h:"后天", p:"hòutiān", m:"ngày kia", c:"Thời gian", n:"" },
+    { h:"前天", p:"qiántiān", m:"hôm kia", c:"Thời gian", n:"" },
+    { h:"上个月", p:"shàng gè yuè", m:"tháng trước", c:"Thời gian", n:"" },
+    { h:"这个月", p:"zhè gè yuè", m:"tháng này", c:"Thời gian", n:"" },
+    { h:"下个月", p:"xià gè yuè", m:"tháng sau", c:"Thời gian", n:"" },
+    { h:"上星期", p:"shàng xīngqī", m:"tuần trước", c:"Thời gian", n:"" },
+    { h:"下星期", p:"xià xīngqī", m:"tuần sau", c:"Thời gian", n:"" },
+    { h:"周末", p:"zhōumò", m:"cuối tuần", c:"Thời gian", n:"" },
+    { h:"早上好", p:"zǎoshang hǎo", m:"chào buổi sáng", c:"Cụm từ", n:"" },
+    { h:"晚安", p:"wan an", m:"chúc ngủ ngon", c:"Cụm từ", n:"" }];
 // ===== FLASHCARD =====
 let list = [...V], idx = 0, flipped = false;
 let known = {}; try { known = JSON.parse(localStorage.getItem('pp_known') || '{}'); } catch(e) {}
-let curCat = 'Tất cả', memState = 'unknown', typeState = 'all';
+let curCat = 'Tất cả', memState = 'unknown';
 function saveKnown() { localStorage.setItem('pp_known', JSON.stringify(known)); }
 
 function initFilters() {
@@ -808,18 +822,11 @@ function memFilter(m) {
     document.querySelectorAll('#memFilters .mem-btn').forEach(b => b.classList.toggle('active', b.dataset.mem === m));
     applyFilters();
 }
-function typeFilter(t) {
-    typeState = t;
-    document.querySelectorAll('#typeFilters .type-btn').forEach(b => b.classList.toggle('active', b.dataset.type === t));
-    applyFilters();
-}
 function applyFilters() {
     list = V.filter(v => {
         if (curCat !== 'Tất cả' && v.c !== curCat) return false;
         if (memState === 'unknown' && known[v.h]) return false;
         if (memState === 'known' && !known[v.h]) return false;
-        if (typeState === 'don' && v.t !== 'đơn') return false;
-        if (typeState === 'ghep' && v.t !== 'ghép') return false;
         return true;
     });
     idx = 0; show();
@@ -916,32 +923,15 @@ function go(sec) {
     if (tabId === 'loop') startLoop();
 }
 function switchTab(t) {
-    // tab button clicked: flash/don/ghep/loop
+    // tab button clicked: flash/loop
     $('#homeView').style.display = 'none';
     $('#contentCard').style.display = 'block';
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    if (t === 'don') {
-        typeState = 'don';
-        $('#tab-don').classList.add('active');
-        $('#flash').classList.add('active');
-        applyFilters();
-    } else if (t === 'ghep') {
-        typeState = 'ghep';
-        $('#tab-ghep').classList.add('active');
-        $('#flash').classList.add('active');
-        applyFilters();
-    } else if (t === 'flash') {
-        typeState = 'all';
-        $('#tab-flash').classList.add('active');
-        $('#flash').classList.add('active');
-        applyFilters();
-    } else {
-        $('#tab-' + t).classList.add('active');
-        $('#' + t).classList.add('active');
-    }
+    $('#tab-' + t).classList.add('active');
+    $('#' + t).classList.add('active');
     if (t === 'loop') startLoop();
-    const map = { flash:'flash', don:'flash', ghep:'flash', loop:'loop' };
+    const map = { flash:'flash', loop:'loop' };
     document.querySelectorAll('.menu-item').forEach(m => m.classList.toggle('active', m.dataset.sec === map[t]));
 }
 
