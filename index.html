@@ -723,7 +723,16 @@ const V = [
     { h:"踢足球", p:"tīzúqiú", m:"đá bóng", c:"Động từ", n:"" },
     { h:"打篮球", p:"dǎlánqiú", m:"chơi bóng rổ", c:"Động từ", n:"" },
     { h:"上学", p:"shàngxué", m:"đi học", c:"Động từ", n:"" }
-    ];
+    ,
+    { h:"上", p:"shàng", m:"trên, lên", c:"Danh từ & Đồ vật", n:"" },
+    { h:"下", p:"xià", m:"dưới, xuống", c:"Danh từ & Đồ vật", n:"" },
+    { h:"左", p:"zuǒ", m:"trái", c:"Danh từ & Đồ vật", n:"" },
+    { h:"右", p:"yòu", m:"phải", c:"Danh từ & Đồ vật", n:"" },
+    { h:"里", p:"lǐ", m:"trong, bên trong", c:"Danh từ & Đồ vật", n:"" },
+    { h:"外", p:"wài", m:"ngoài, bên ngoài", c:"Danh từ & Đồ vật", n:"" },
+    { h:"前", p:"qián", m:"trước, phía trước", c:"Danh từ & Đồ vật", n:"" },
+    { h:"后", p:"hòu", m:"sau, phía sau", c:"Danh từ & Đồ vật", n:"" },
+                                                                                                                ];
 // ===== FLASHCARD =====
 let list = [...V], idx = 0, flipped = false;
 let known = {}; try { known = JSON.parse(localStorage.getItem('pp_known') || '{}'); } catch(e) {}
@@ -985,4 +994,36 @@ function importProgress(ev) {
     };
     reader.readAsText(f);
 }
-</script>
+</script>,
+    { h:"上", p:"shàng", m:"trên, lên", c:"Danh từ & Đồ vật", n:"" },
+    { h:"下", p:"xià", m:"dưới, xuống", c:"Danh từ & Đồ vật", n:"" },
+    { h:"左", p:"zuǒ", m:"trái", c:"Danh từ & Đồ vật", n:"" },
+    { h:"右", p:"yòu", m:"phải", c:"Danh từ & Đồ vật", n:"" },
+    { h:"里", p:"lǐ", m:"trong, bên trong", c:"Danh từ & Đồ vật", n:"" },
+    { h:"外", p:"wài", m:"ngoài, bên ngoài", c:"Danh từ & Đồ vật", n:"" },
+    { h:"前", p:"qián", m:"trước, phía trước", c:"Danh từ & Đồ vật", n:"" },
+    { h:"后", p:"hòu", m:"sau, phía sau", c:"Danh từ & Đồ vật", n:"" },
+    { h:"旁边", p:"pángbiān", m:"bên cạnh", c:"Danh từ & Đồ vật", n:"" },
+    { h:"对面", p:"duìmiàn", m:"đối diện", c:"Danh từ & Đồ vật", n:"" },
+    { h:"中间", p:"zhōngjiān", m:"ở giữa", c:"Danh từ & Đồ vật", n:"" },
+    { h:"上面", p:"shàngmiàn", m:"phía trên", c:"Danh từ & Đồ vật", n:"" },
+    { h:"下面", p:"xiàmiàn", m:"phía dưới", c:"Danh từ & Đồ vật", n:"" },
+    { h:"左边", p:"zuǒbian", m:"bên trái", c:"Danh từ & Đồ vật", n:"" },
+    { h:"右边", p:"yòubian", m:"bên phải", c:"Danh từ & Đồ vật", n:"" },
+    { h:"里面", p:"lǐmiàn", m:"bên trong", c:"Danh từ & Đồ vật", n:"" },
+    { h:"外面", p:"wàimiàn", m:"bên ngoài", c:"Danh từ & Đồ vật", n:"" },
+    { h:"前面", p:"qiánmiàn", m:"phía trước", c:"Danh từ & Đồ vật", n:"" },
+    { h:"后面", p:"hòumiàn", m:"phía sau", c:"Danh từ & Đồ vật", n:"" },
+    { h:"往上", p:"wǎngshàng", m:"đi lên, hướng lên", c:"Động từ", n:"" },
+    { h:"往下", p:"wǎngxià", m:"đi xuống, hướng xuống", c:"Động từ", n:"" },
+    { h:"往里", p:"wǎnglǐ", m:"đi vào trong, hướng vào", c:"Động từ", n:"" },
+    { h:"往外", p:"wǎngwài", m:"đi ra ngoài, hướng ra", c:"Động từ", n:"" },
+    { h:"往前", p:"wǎngqián", m:"đi về phía trước", c:"Động từ", n:"" },
+    { h:"往后", p:"wǎnghòu", m:"đi về phía sau", c:"Động từ", n:"" },
+    { h:"东边", p:"dōngbiān", m:"phía đông", c:"Danh từ & Đồ vật", n:"" },
+    { h:"西边", p:"xībiān", m:"phía tây", c:"Danh từ & Đồ vật", n:"" },
+    { h:"南边", p:"nánbiān", m:"phía nam", c:"Danh từ & Đồ vật", n:"" },
+    { h:"北边", p:"běibiān", m:"phía bắc", c:"Danh từ & Đồ vật", n:"" },
+    { h:"楼上", p:"lóushàng", m:"trên lầu", c:"Danh từ & Đồ vật", n:"" },
+    { h:"楼下", p:"lóuxià", m:"dưới lầu", c:"Danh từ & Đồ vật", n:"" }
+    
